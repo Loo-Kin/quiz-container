@@ -1,0 +1,1 @@
+let heightImg = $("img").height();

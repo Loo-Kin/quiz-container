@@ -1,0 +1,141 @@
+@mixin global-factory-all($thisPrefix) 
+
+    @for $i from 1 through $count
+        .mt-#{$i * $iterator} 
+            margin-top: $i * $iterator + px !important
+        .mr-#{$i * $iterator} 
+            margin-right: $i * $iterator + px !important
+        .mb-#{$i * $iterator} 
+            margin-bottom: $i * $iterator + px !important
+        .ml-#{$i * $iterator} 
+            margin-left: $i * $iterator + px !important
+
+        .pt-#{$i * $iterator} 
+            padding-top: $i * $iterator + px !important
+        .pr-#{$i * $iterator} 
+            padding-right: $i * $iterator + px !important
+        .pb-#{$i * $iterator} 
+            padding-bottom: $i * $iterator + px !important
+        .pl-#{$i * $iterator} 
+            padding-left: $i * $iterator + px !important
+
+    @each $block in $blocks
+        .d-#{$block}
+            display: $block !important
+
+    @each $state in $align
+        .text-#{$state}
+            text-align: $state !important
+
+    @each $state in $case
+        .text-#{$state}
+            text-transform: $state !important
+
+@mixin global-factory-lg($thisPrefix-lg) 
+
+    @for $i from 1 through $count
+        .mt-lg-#{$i * $iterator} 
+            margin-top: $i * $iterator + px !important
+        .mr-lg-#{$i * $iterator} 
+            margin-right: $i * $iterator + px !important
+        .mb-lg-#{$i * $iterator} 
+            margin-bottom: $i * $iterator + px !important
+        .ml-lg-#{$i * $iterator} 
+            margin-left: $i * $iterator + px !important
+
+        .pt-lg-#{$i * $iterator} 
+            padding-top: $i * $iterator + px !important
+        .pr-lg-#{$i * $iterator} 
+            padding-right: $i * $iterator + px !important
+        .pb-lg-#{$i * $iterator} 
+            padding-bottom: $i * $iterator + px !important
+        .pl-lg-#{$i * $iterator} 
+            padding-left: $i * $iterator + px !important
+
+    @each $block in $blocks
+        .d-lg-#{$block}
+            display: $block !important
+
+    @each $state in $align
+        .text-lg-#{$state}
+            text-align: $state !important
+
+
+@mixin global-factory-md($thisPrefix-md) 
+
+    @for $i from 1 through $count
+        .mt-md-#{$i * $iterator} 
+            margin-top: $i * $iterator + px !important
+        .mr-md-#{$i * $iterator} 
+            margin-right: $i * $iterator + px !important
+        .mb-md-#{$i * $iterator} 
+            margin-bottom: $i * $iterator + px !important
+        .ml-md-#{$i * $iterator} 
+            margin-left: $i * $iterator + px !important
+
+        .pt-md-#{$i * $iterator} 
+            padding-top: $i * $iterator + px !important
+        .pr-md-#{$i * $iterator} 
+            padding-right: $i * $iterator + px !important
+        .pb-md-#{$i * $iterator} 
+            padding-bottom: $i * $iterator + px !important
+        .pl-md-#{$i * $iterator} 
+            padding-left: $i * $iterator + px !important
+
+    @each $block in $blocks
+        .d-md-#{$block}
+            display: $block !important
+
+    @each $state in $align
+        .text-md-#{$state}
+            text-align: $state !important
+
+
+@mixin global-factory-xs($thisPrefix-xs) 
+
+    @for $i from 1 through $count
+        .mt-xs-#{$i * $iterator} 
+            margin-top: $i * $iterator + px !important
+        .mr-xs-#{$i * $iterator} 
+            margin-right: $i * $iterator + px !important
+        .mb-xs-#{$i * $iterator} 
+            margin-bottom: $i * $iterator + px !important
+        .ml-xs-#{$i * $iterator} 
+            margin-left: $i * $iterator + px !important
+
+        .pt-xs-#{$i * $iterator} 
+            padding-top: $i * $iterator + px !important
+        .pr-xs-#{$i * $iterator} 
+            padding-right: $i * $iterator + px !important
+        .pb-xs-#{$i * $iterator} 
+            padding-bottom: $i * $iterator + px !important
+        .pl-xs-#{$i * $iterator} 
+            padding-left: $i * $iterator + px !important
+
+    @each $block in $blocks
+        .d-xs-#{$block}
+            display: $block !important
+
+    @each $state in $align
+        .text-xs-#{$state}
+            text-align: $state !important
+
+            
+
+@for $i from 1 through length($breakpoint-all-prefixes) 
+    $thisPrefix: nth($breakpoint-all-prefixes, $i)
+    $thisPrefix-xs: "xs"
+    $thisPrefix-lg: "lg"
+    $thisPrefix-md: "md"
+    @if $thisPrefix == "xs" 
+        @include global-factory-all($thisPrefix)
+        @media #{$breakpoint-xs-only} 
+            @include global-factory-xs($thisPrefix-xs)
+
+    @else if $thisPrefix == "md" 
+        @media #{$breakpoint-md-only}
+            @include global-factory-md($thisPrefix-md)
+
+    @else if $thisPrefix == "lg" 
+        @media #{$breakpoint-lg-only}
+            @include global-factory-lg($thisPrefix-lg)

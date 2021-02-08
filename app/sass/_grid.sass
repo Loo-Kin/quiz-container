@@ -1,0 +1,213 @@
+.container 
+    width: 100%
+    margin-right: auto
+    margin-left: auto
+    @media #{$breakpoint-lg-only} 
+        max-width: 1200px
+        padding-right: 20px
+        padding-left: 20px
+    @media #{$breakpoint-md-only}
+        padding-right: 20px
+        padding-left: 20px
+    @media #{$breakpoint-xs-only}
+        max-width: 450px
+        padding-right: 15px
+        padding-left: 15px
+
+.row 
+    @include row()
+
+
+.row.reverse 
+    @include row-reverse()
+
+
+.row.natural-height 
+    @include row-natural-height()
+
+
+.row.flex-column 
+    @include row-flex-column()
+
+
+.col 
+    @include col()
+
+
+.col.reverse 
+    @include col-reverse()
+
+
+.first 
+    order: -1
+
+
+.last 
+    order: 1
+
+
+.align-start 
+    align-self: flex-start
+
+
+.align-end 
+    align-self: flex-end
+
+
+.align-center 
+    align-self: center
+
+
+.align-baseline 
+    align-self: baseline
+
+
+.align-stretch 
+    align-self: stretch
+
+
+@mixin col-factory-all($thisPrefix) 
+    @for $i from 1 through $grid-columns
+        .col-#{$i} 
+            box-sizing: border-box
+            flex-basis: 100% / $grid-columns * $i
+            max-width: 100% / $grid-columns * $i
+            padding: $gutter-lg
+            @media #{$breakpoint-lg-only} 
+                padding: $gutter-lg
+            @media #{$breakpoint-md-only} 
+                padding: $gutter-md
+            @media #{$breakpoint-xs-only} 
+                padding: $gutter-xs
+    
+        .col-offset-#{$i} 
+            margin-left: 100% / $grid-columns * $i
+    
+    .row.start 
+        justify-content: flex-start
+  
+    .row.center 
+        justify-content: center
+  
+    .row.end 
+        justify-content: flex-end
+  
+    .row.top 
+        align-items: flex-start
+  
+    .row.middle 
+        align-items: center
+  
+    .row.bottom 
+        align-items: flex-end
+  
+    .row.around 
+        justify-content: space-around
+  
+    .row.between 
+        justify-content: space-between
+  
+
+@mixin col-factory-xs($thisPrefix-xs) 
+    @for $i from 1 through $grid-columns-xs 
+        .col-xs-#{$i} 
+            box-sizing: border-box
+            flex-basis: 100% / $grid-columns-xs * $i
+            max-width: 100% / $grid-columns-xs * $i
+            padding: $gutter-xs
+
+        .col-xs-offset-#{$i} 
+            margin-left: 100% / $grid-columns-xs * $i
+    
+  
+@mixin col-factory-md($thisPrefix-md) 
+    @for $i from 1 through $grid-columns-md 
+        .col-md-#{$i} 
+            box-sizing: border-box
+            flex-basis: 100% / $grid-columns-md * $i
+            max-width: 100% / $grid-columns-md * $i
+            padding: $gutter-md
+
+        .col-md-offset-#{$i} 
+            margin-left: 100% / $grid-columns-md * $i
+
+
+@mixin col-factory-lg($thisPrefix-lg) 
+    @for $i from 1 through $grid-columns-lg 
+        .col-lg-#{$i} 
+            box-sizing: border-box
+            flex-basis: 100% / $grid-columns-lg * $i
+            max-width: 100% / $grid-columns-lg * $i
+            padding: $gutter-lg
+    
+        .col-lg-offset-#{$i} 
+            margin-left: 100% / $grid-columns-lg * $i
+
+
+// Mixin to run inside of for loop - creates col/breakpoint classes * Not for developer use *
+@mixin col-factory($thisPrefix) 
+    @for $i from 1 through $grid-columns 
+        .order-#{$i} 
+            order: #{$i}
+
+    .row.start-#{$thisPrefix} 
+        justify-content: flex-start
+  
+    .row.center-#{$thisPrefix} 
+        justify-content: center
+  
+    .row.end-#{$thisPrefix} 
+        justify-content: flex-end
+  
+    .row.top-#{$thisPrefix} 
+        align-items: flex-start
+  
+    .row.middle-#{$thisPrefix} 
+        align-items: center
+  
+    .row.bottom-#{$thisPrefix} 
+        align-items: flex-end
+  
+    .row.around-#{$thisPrefix} 
+        justify-content: space-around
+  
+    .row.between-#{$thisPrefix} 
+        justify-content: space-between
+  
+    .first-#{$thisPrefix} 
+        order: -1
+  
+    .last-#{$thisPrefix} 
+        order: 1
+  
+// Mixin to run inside of for loop - creates col/breakpoint classes
+@for $i from 1 through length($breakpoint-all-prefixes) 
+    $thisPrefix: nth($breakpoint-all-prefixes, $i)
+    $thisPrefix-xs: "xs"
+    $thisPrefix-lg: "lg"
+    $thisPrefix-md: "md"
+    @if $thisPrefix == "xs" 
+        @include col-factory-all($thisPrefix)
+        @media #{$breakpoint-xs-only} 
+            @include col-factory-xs($thisPrefix-xs)
+            @include col-factory($thisPrefix)
+
+    @else if $thisPrefix == "md" 
+        @media #{$breakpoint-md-only}
+            @include col-factory-md($thisPrefix-md)
+            @include col-factory($thisPrefix)
+
+    @else if $thisPrefix == "lg" 
+        @media #{$breakpoint-lg-only}
+            @include col-factory-lg($thisPrefix-lg)
+            @include col-factory($thisPrefix)
+    
+  
+
+
+.col-gutter-lr 
+    padding: 0 $gutter
+
+
+.col-no-gutter 
+    padding: 0

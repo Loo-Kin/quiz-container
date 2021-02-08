@@ -1,0 +1,30 @@
+// Grid
+$grid-columns: 12 !default // Set number of columns in the grid
+$grid-columns-xs: 12 !default // Set number of columns in the grid
+$grid-columns-md: 12 !default // Set number of columns in the grid
+$grid-columns-lg: 12 !default // Set number of columns in the grid
+
+$xs-max: 767px !default // Set xs breakpoint's max width
+$md-min: 768px !default // Set ms breakpoint's min width
+$lg-min: 1200px !default // Set lg breakpoint's min width
+
+$gutter: 0 10px !default // Set gutter size
+$gutter-lg: 0 10px !default // Set gutter size
+$gutter-md: 0 10px !default // Set gutter size
+$gutter-xs: 0 7.5px !default // Set gutter size
+
+$content-well-max-width: "none" !default // Set the max-width of the content well
+
+$xs-start: ($xs-max) // Generate xs breakpoint's min width
+$md-start: ($md-min) // Generate md breakpoint's min width
+$lg-start: ($lg-min) // Generate lg breakpoint's min width
+
+// Breakpoints
+// Create breakpoint range statements to be used in media queries
+$breakpoint-xs-only: "only screen and (max-width: #{$xs-start})" // 0 -> xs-max range
+$breakpoint-md-only: "only screen and (min-width: #{$md-start}) and (max-width: #{$lg-min - 1})" // xs-max -> md-start range
+$breakpoint-lg-only: "only screen and (min-width: #{$lg-start})" // lg-start -> md-min range
+
+$breakpoints-all: ($breakpoint-xs-only, $breakpoint-md-only, $breakpoint-lg-only)
+
+$breakpoint-all-prefixes: ("xs", "md", "lg")

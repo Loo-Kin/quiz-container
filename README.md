@@ -1,11 +1,16 @@
-// Запуск сборщика
-gulp - starting build
-
-// Очистка всех картинок в build
-gulp cleanimages - cleaning images
-
-// Собирает все шрифты (достаточно формата ttf)
-gulp fonts fontsStyle - build fonts
-
-// Очистка build
-gulp cleandist - cleaning dist
+### Starting build
+```
+gulp
+```
+### Cleaning images
+```
+gulp cleanimages
+```
+### Build fonts
+```
+gulp fonts fontsStyle
+```
+### Cleaning dist
+```
+gulp cleandist
+```
