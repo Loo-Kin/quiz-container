@@ -1,3 +1,7 @@
+## Project setup
+```
+npm install
+```
 ### Starting build
 ```
 gulp
