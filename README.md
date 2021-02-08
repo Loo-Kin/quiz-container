@@ -18,3 +18,5 @@ gulp fonts fontsStyle
 ```
 gulp cleandist
 ```
+### How the grid works
+See [Grid Reference](https://getbootstrap.com/docs/5.0/layout/grid/).
