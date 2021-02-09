@@ -24,7 +24,8 @@ const fonter = require('gulp-fonter');
 const webp = require('gulp-webp');
 const webphtml = require('gulp-webp-html');
 const webpcss = require('gulp-webp-css');
-const embedSvg = require("gulp-embed-svg");
+// const embedSvg = require("gulp-embed-svg");
+const injectSvg = require("gulp-inject-svg");
 
 function browsersync() {
     browserSync.init({
@@ -43,8 +44,8 @@ function htmlrigger() {
             prefix: '@@',
             basepath: 'app/'
         }))
-        .pipe(embedSvg({
-            root: 'app/'
+        .pipe(injectSvg({
+            base: 'app/'
         }))
         .pipe(webphtml())
         .pipe(dest('dist/'))
@@ -85,10 +86,11 @@ function styles() {
 function images() {
     return src(['app/images/**/*'])
         .pipe(newer('dist/images/'))
+        .pipe(imagemin())
+        .pipe(dest('dist/images/'))
         .pipe(webp({
             quality: 70
         }))
-        .pipe(imagemin())
         .pipe(dest('dist/images/'))
 }
 
