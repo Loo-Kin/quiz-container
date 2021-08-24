@@ -1,0 +1,123 @@
+<div id="app">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Тестирование</h1>
+                <hr class="mb-25">
+                
+                <quiz-container :questions="questions" :close-test-callback="closeTestCallback"></quiz-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/x-template" id="quiz-intro-template">
+    <div>
+        <div>
+            Пора проверить твои знания. Далее — тестирование.
+        </div>
+        <div class="quiz-buttons-area">
+            <button @click="beginQuiz()">Начать</button>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-template" id="quiz-container-template">
+    <div class="quiz">
+        <div v-if="!isQuizBegun">
+            <quiz-intro v-on:quiz-begun="initQuiz()"></quiz-intro>
+        </div>
+        <div v-else>
+            <div v-if="currentQuestion >= 0 && currentQuestion < questionsData.length">
+                <div class="quiz-question-number">Вопрос {{ currentQuestion + 1 }} из {{ questionsData.length }}</div>
+                <quiz-question 
+                    :question="questionsData[currentQuestion]" 
+                    v-on:go-to-next-question="currentQuestion++"
+                    v-on:answered-correct="addScore(); updateProgress(true)"
+                    v-on:answered-incorrect="updateProgress(false)"></quiz-question>
+            </div>
+            <div v-else>
+                <quiz-feedback 
+                    :questions="questionsData"
+                    :attempt="attempts" 
+                    :score="currentScore"
+                    :maxScore="maxScore"
+                    v-on:quiz-restart="restartQuiz()"
+                    v-on:quiz-close="closeQuiz()"></quiz-feedback>
+            </div>
+            <hr>
+            <quiz-progress :questions="questionsData" :progressData="currentAnswers"></quiz-progress>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-template" id="quiz-question-template">
+    <div>
+        <div class="quiz-question">{{ question.questionText }}</div>
+        <div>
+            <div 
+                v-for="(answer, index) in question.answers" 
+                :class="['quiz-answer',
+                    {'correct-answer': answer.isCorrect && isFeedbackMode, 'incorrect-answer': !answer.isCorrect && isFeedbackMode && selectedAnswer === index}
+                ]">
+                <input 
+                    type="radio" 
+                    name="radio-box-group" 
+                    :id="String('answer' + index)" 
+                    :disabled="isFeedbackMode" 
+                    v-model="selectedAnswer" 
+                    :value="index" 
+                    @change="selectAnswer(index)">
+                <label :for="String('answer' + index)">
+                    <div>
+                        {{ answer.answerText }}
+                    </div>
+                </label>
+            </div>
+        </div>
+        <div v-if="isFeedbackMode">
+            <div v-if="question.answers[selectedAnswer].isCorrect" class="quiz-question-feedback correct-answer">
+                Верно!
+            </div>
+            <div v-else class="quiz-question-feedback incorrect-answer">
+                Неверно!
+            </div>
+        </div>
+        <div class="quiz-buttons-area">
+            <button v-if="!isFeedbackMode && selectedAnswer !== null" @click="applyQuestion()">Ответить</button>
+            <button v-else-if="isFeedbackMode" @click="goToNextQuestion()">Продолжить</button>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-template" id="quiz-progress-template">
+    <div class="quiz-progress">
+        <div
+            class="quiz-progress-element"
+            v-for="(question, index) in questions"
+            :class="{'correct-answer': progressData[index] === true, 'incorrect-answer': progressData[index] === false}">
+            {{ index + 1 }}
+        </div>
+    </div>
+</script>
+
+<script type="text/x-template" id="quiz-feedback-template">
+    <div>
+        <div>
+            Результат {{ attempt }}-й попытки: {{ score }} из {{ questions.length }} ({{ Math.floor(score / questions.length * 100) }}%)
+        </div>
+        <div>
+            Лучший результат: {{ maxScore }} из {{ questions.length }} ({{ Math.floor(maxScore / questions.length * 100) }}%)
+        </div>
+        <div v-if="quizSuccess">
+            Это отличный результат, поздравляем!
+        </div>
+        <div v-else>
+            Это не очень хороший результат. Попробуйте ещё раз.
+        </div>
+        <div class="quiz-buttons-area">
+            <button @click="$emit('quiz-restart')">Повторить</button>
+            <button @click="$emit('quiz-close')">Закончить тестирование</button>
+        </div>
+    </div>
+</script>

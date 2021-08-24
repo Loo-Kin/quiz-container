@@ -1,0 +1,73 @@
+.quiz
+    & .quiz-question-number
+        font-size: 0.65em
+        color: blue
+    & .quiz-question
+        margin-bottom: 20px
+    & .correct-answer
+        background-color: palegreen
+    & .incorrect-answer
+        background-color: #ff5f5f
+    & .quiz-answer
+        padding: 0 6px 4px 6px
+        border-radius: 4px
+        display: flex
+        align-items: center
+        // & input[type="radio"]
+        //     display: none
+        & label
+            padding-left: 8px
+            width: 100%
+            display: flex
+            align-items: center
+            // &:before
+            //     content: ""
+            //     display: inline-block
+            //     width: 14px
+            //     height: 14px
+            //     border-radius: 100%
+            //     border: solid 1px red
+        &:hover
+            background-color: #bebebe
+        &.correct-answer
+            background-color: palegreen
+        &.incorrect-answer
+            background-color: #ff5f5f
+
+    & .quiz-question-feedback
+        width: 140px
+        margin: 10px auto
+        padding: 4px
+        text-align: center
+        border-radius: 4px
+
+    & .quiz-buttons-area
+        margin: 10px 0
+        & button
+            padding: 2px 4px 3px 4px
+            background-color: skyblue
+            border: solid 1px blue
+            color: blue
+            border-radius: 4px
+            min-width: 150px
+            transition: all 0.2s
+            &:hover, &:active
+                background-color: blue
+                color: skyblue
+
+    & .quiz-progress
+        display: flex
+        flex-wrap: wrap
+        &-element
+            display: flex
+            justify-content: center
+            align-items: center
+            width: 40px
+            height: 40px
+            margin: 4px
+            background-color: #bebebe
+            border-radius: 20px
+            &.correct-answer
+                background-color: palegreen
+            &.incorrect-answer
+                background-color: #ff5f5f
