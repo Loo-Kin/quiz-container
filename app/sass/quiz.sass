@@ -13,20 +13,25 @@
         border-radius: 4px
         display: flex
         align-items: center
-        // & input[type="radio"]
-        //     display: none
+        & input[type="radio"]
+            display: none
+            &:checked + label:before
+                background-color: blue
         & label
-            padding-left: 8px
             width: 100%
             display: flex
             align-items: center
-            // &:before
-            //     content: ""
-            //     display: inline-block
-            //     width: 14px
-            //     height: 14px
-            //     border-radius: 100%
-            //     border: solid 1px red
+            &:before
+                content: ""
+                display: inline-block
+                width: 14px
+                height: 14px
+                min-width: 14px
+                min-height: 14px
+                border-radius: 100%
+                border: solid 1px blue
+                margin-right: 8px
+                transition: all 0.5s
         &:hover
             background-color: #bebebe
         &.correct-answer

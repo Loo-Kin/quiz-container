@@ -1,3 +1,6 @@
+/**
+ * Компонент Введение
+ */
 let QuizIntro = {
     methods: {
         beginQuiz: function() {
@@ -7,6 +10,9 @@ let QuizIntro = {
     template: '#quiz-intro-template'
 }
 
+/**
+ * Компонент Вопрос
+ */
 let QuizQuestion = {
     props: {
         question: {
@@ -40,6 +46,9 @@ let QuizQuestion = {
     template: '#quiz-question-template'
 };
 
+/**
+ * Компонент Шкала прогресса
+ */
 let QuizProgress = {
     props: {
         questions: {
@@ -52,6 +61,9 @@ let QuizProgress = {
     template: '#quiz-progress-template'
 };
 
+/**
+ * Компонент Обратная связь
+ */
 let QuizFeedback = {
     props: {
         questions: {
@@ -75,6 +87,9 @@ let QuizFeedback = {
     template: '#quiz-feedback-template'
 };
 
+/**
+ * Компонент Контейнер
+ */
 Vue.component('quiz-container', {
     props: {
         questions: {
@@ -267,6 +282,10 @@ new Vue({
     }
 });
 
+/**
+ * Случайное перемешивание элементов в массиве
+ * @param {*} array Входной массив
+ */
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1)); // случайный индекс от 0 до i
